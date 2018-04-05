@@ -31,7 +31,7 @@ namespace ExLemaf
             {
 
                 sala = buscaSala(calDataInicio.SelectedDate.Date, txtHoraInicio.Text, calDataFim.SelectedDate.Date, txtHoraFim.Text,
-                        Convert.ToInt32(txtNumPessoas.Text), cbComputador.Checked, cbTV.Checked, cbWebcam.Checked, cbWifi.Checked);
+                        Convert.ToInt32(txtNumPessoas.Text), cbComputador.Checked, cbTV.Checked, cbWebcam.Checked, cbWifi.Checked, txtMinInicio.Text, txtMinFim.Text);
 
                 if (sala != null)
                 {
@@ -44,16 +44,28 @@ namespace ExLemaf
             }
             else
             {
+                string nome = fuEntrada.FileName;
+                string caminho = AppDomain.CurrentDomain.BaseDirectory;
+                fuEntrada.PostedFile.SaveAs(caminho + nome);
 
-                string caminho = fuEntrada.PostedFile.FileName;
-                string textoEntrada = File.ReadAllText(caminho);                
+                string textoEntrada = File.ReadAllText(caminho + nome);                
 
                 String[] texto = textoEntrada.Split(';');
 
                 DateTime inicio = DateTime.Parse(texto[0]);
                 string horaInicio = texto[1];
+
+                String[] tempo1 = horaInicio.Split(':');
+                horaInicio = tempo1[0];
+                string minInicio = tempo1[1];
+
                 DateTime fim = DateTime.Parse(texto[2]);
                 string horaFim = texto[3];
+
+                String[] tempo2 = horaFim.Split(':');
+                horaFim = tempo2[0];
+                string minFim = tempo2[1];
+
                 int pessoas = Convert.ToInt32(texto[4]);
                 bool internet = false;
                 bool webcam = false;
@@ -74,11 +86,11 @@ namespace ExLemaf
                     webcam = false;
                 }
 
-                buscaSala(inicio, horaInicio, fim, horaFim, pessoas, false, false, webcam, internet);
+                sala = buscaSala(inicio, horaInicio, fim, horaFim, pessoas, false, false, webcam, internet, minInicio, minFim);
 
                 if (sala != null)
                 {
-                    adicionaReserva(sala);
+                    adicionaReserva(sala, inicio, fim, horaInicio, horaFim, minInicio, minFim);
                 }
                 else
                 {
@@ -87,7 +99,7 @@ namespace ExLemaf
             }
         }
 
-        private Sala buscaSala(DateTime dataInicio, string horaInicio, DateTime dataFim, string horaFim, int pessoas, bool pc, bool tv, bool webcam, bool wifi)
+        private Sala buscaSala(DateTime dataInicio, string horaInicio, DateTime dataFim, string horaFim, int pessoas, bool pc, bool tv, bool webcam, bool wifi, string minInicio, string minFim)
         {
             lblAviso.Text = "";
             lblReservas.Text = "";
@@ -110,11 +122,11 @@ namespace ExLemaf
 
                     List<Reserva> reservas = item.pegaReservas();
 
-                    Reserva reserva = new Reserva(sala, dataInicio, dataFim, txtHoraInicio.Text, txtHoraFim.Text, txtMinInicio.Text, txtMinFim.Text);
+                    Reserva reserva = new Reserva(sala, dataInicio, dataFim, horaInicio, horaFim, minInicio, minFim);
 
                     if (tempoMinimo(reserva) || tempoMaximo(reserva) || finalDeSemana(reserva) || duracaoReuniao(reserva))
                     {
-                        lblAviso.Text = lblAviso.Text + "Não está obedecendo as regras de agendamento</br>";
+                        lblAviso.Text = "Não está obedecendo as regras de agendamento</br>";
                     }
                     else if (reservas == null)
                     {
@@ -156,7 +168,7 @@ namespace ExLemaf
                 DateTime dataFim = calDataFim.SelectedDate.Date.AddDays(a);               
 
                 sala = buscaSala(dataInicio, txtHoraInicio.Text, dataFim, txtHoraFim.Text,Convert.ToInt32(txtNumPessoas.Text),
-                                cbComputador.Checked, cbTV.Checked, cbWebcam.Checked, cbWifi.Checked);
+                                cbComputador.Checked, cbTV.Checked, cbWebcam.Checked, cbWifi.Checked, txtMinInicio.Text, txtMinFim.Text);
                 a++;
 
                 if (sala != null)
@@ -200,7 +212,7 @@ namespace ExLemaf
             return false;
         }
 
-        protected void adicionaReserva(Sala sala)
+        private void adicionaReserva(Sala sala)
         {
             lblAviso.Text = "Adicionando Reserva";
             string caminho = AppDomain.CurrentDomain.BaseDirectory;
@@ -210,6 +222,39 @@ namespace ExLemaf
             List<Reserva> reservas = (List<Reserva>)javaScriptSerializer.Deserialize(jsonString, typeof(List<Reserva>));
 
             Reserva reserva = new Reserva(sala, calDataInicio.SelectedDate, calDataFim.SelectedDate, txtHoraInicio.Text, txtHoraFim.Text, txtMinInicio.Text, txtMinFim.Text);
+
+            if (reservas != null)
+            {
+                for (int i = 0; i < reservas.Count; i++)
+                {
+                    reservados.reservas.Add(reservas[i]);
+                }
+            }
+
+            reservados.reservas.Add(reserva);
+
+            reservados.reservas = reservados.reservas.OrderBy(a => a.id).ToList();
+
+            var json = JsonConvert.SerializeObject(reservados.reservas, Formatting.Indented);
+
+            using (StreamWriter writer = new StreamWriter(caminho + @"\Json\reservas.json", false))
+            {
+                writer.Write(json);
+            }
+
+            lblAviso.Text = "Reserva efetuada com sucesso";
+        }
+
+        private void adicionaReserva(Sala sala, DateTime inicio, DateTime fim, string horaInicio, string horaFim, string minInicio, string minFim)
+        {
+            lblAviso.Text = "Adicionando Reserva";
+            string caminho = AppDomain.CurrentDomain.BaseDirectory;
+            string jsonString = File.ReadAllText(caminho + @"\Json\reservas.json");
+
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            List<Reserva> reservas = (List<Reserva>)javaScriptSerializer.Deserialize(jsonString, typeof(List<Reserva>));
+
+            Reserva reserva = new Reserva(sala, inicio, fim, horaInicio, horaFim, minInicio, minFim);
 
             if (reservas != null)
             {
