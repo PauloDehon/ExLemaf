@@ -9,19 +9,19 @@
         .auto-style3 {
             height: 184px;
         }
-        .auto-style4 {
-            height: 184px;
-            width: 496px;
-        }
-        .auto-style5 {
-            width: 496px;
-        }
         .auto-style6 {
             height: 184px;
             width: 389px;
         }
         .auto-style7 {
             width: 389px;
+        }
+        .auto-style8 {
+            height: 184px;
+            width: 282px;
+        }
+        .auto-style9 {
+            width: 282px;
         }
     </style>
 </head>
@@ -48,7 +48,7 @@
             <WeekendDayStyle BackColor="#FFFFCC" />
         </asp:Calendar>
                 </td>
-                <td class="auto-style4"><asp:Calendar ID="calDataFim" runat="server" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="200px">
+                <td class="auto-style8"><asp:Calendar ID="calDataFim" runat="server" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="200px">
             <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
             <NextPrevStyle VerticalAlign="Bottom" />
             <OtherMonthDayStyle ForeColor="#808080" />
@@ -59,7 +59,10 @@
             <WeekendDayStyle BackColor="#FFFFCC" />
         </asp:Calendar>
                 </td>
-                <td class="auto-style3"></td>
+                <td class="auto-style3">
+                    <asp:Label ID="Label7" runat="server" Text="Entrada de Arquivo de texto"></asp:Label>
+                    <asp:FileUpload ID="fuEntrada" runat="server" Width="239px" />
+                </td>
             </tr>
             <tr>
                 <td class="auto-style7">
@@ -68,7 +71,7 @@
         <asp:Label ID="Label6" runat="server" Font-Names="Aharoni" Font-Size="20pt" Text=":"></asp:Label>
         <asp:TextBox ID="txtMinInicio" runat="server" Width="30px"></asp:TextBox>
                 </td>
-                <td class="auto-style5">
+                <td class="auto-style9">
         <asp:Label ID="Label3" runat="server" Text="Hora Fim:"></asp:Label>
         <asp:TextBox ID="txtHoraFim" runat="server" Width="30px"></asp:TextBox>
         <asp:Label ID="Label5" runat="server" Font-Names="Aharoni" Font-Size="20pt" Text=":"></asp:Label>
@@ -89,7 +92,7 @@
                     <br />
         <asp:CheckBox ID="cbWifi" runat="server" Text="Wifi" />
                 </td>
-                <td class="auto-style5">
+                <td class="auto-style9">
         <asp:Label ID="lblAviso" runat="server" BorderStyle="None"></asp:Label>
                     <br />
         <asp:Button ID="btnBuscar" runat="server" OnClick="btnBuscar_Click" Text="Buscar" />
@@ -102,7 +105,7 @@
                     <br />
                     <asp:Label ID="lblDicas" runat="server"></asp:Label>
                 </td>
-                <td class="auto-style5">
+                <td class="auto-style9">
         <asp:Button ID="btnVerReservas" runat="server" OnClick="btnVerReservas_Click" Text="Ver reservas" />
                     <br />
         <asp:Label ID="lblReservas" runat="server"></asp:Label>

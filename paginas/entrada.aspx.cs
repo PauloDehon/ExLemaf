@@ -26,19 +26,65 @@ namespace ExLemaf
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
             Sala sala = new Sala();
-            
-            sala = buscaSala(calDataInicio.SelectedDate.Date, txtHoraInicio.Text, calDataFim.SelectedDate.Date, txtHoraFim.Text,
-                    Convert.ToInt32(txtNumPessoas.Text), cbComputador.Checked, cbTV.Checked, cbWebcam.Checked, cbWifi.Checked);
 
-            if(sala != null)
+            if (fuEntrada.FileName == "")
             {
-                adicionaReserva(sala);
+
+                sala = buscaSala(calDataInicio.SelectedDate.Date, txtHoraInicio.Text, calDataFim.SelectedDate.Date, txtHoraFim.Text,
+                        Convert.ToInt32(txtNumPessoas.Text), cbComputador.Checked, cbTV.Checked, cbWebcam.Checked, cbWifi.Checked);
+
+                if (sala != null)
+                {
+                    adicionaReserva(sala);
+                }
+                else
+                {
+                    sugestaoData();
+                }
             }
             else
             {
-                sugestaoData();
-            }
 
+                string caminho = fuEntrada.PostedFile.FileName;
+                string textoEntrada = File.ReadAllText(caminho);                
+
+                String[] texto = textoEntrada.Split(';');
+
+                DateTime inicio = DateTime.Parse(texto[0]);
+                string horaInicio = texto[1];
+                DateTime fim = DateTime.Parse(texto[2]);
+                string horaFim = texto[3];
+                int pessoas = Convert.ToInt32(texto[4]);
+                bool internet = false;
+                bool webcam = false;
+                if (texto[5] == "Sim")
+                {
+                    internet = true;
+                }
+                else
+                {
+                    internet = false;
+                }
+                if (texto[6] == "Sim")
+                {
+                    webcam = true;
+                }
+                else
+                {
+                    webcam = false;
+                }
+
+                buscaSala(inicio, horaInicio, fim, horaFim, pessoas, false, false, webcam, internet);
+
+                if (sala != null)
+                {
+                    adicionaReserva(sala);
+                }
+                else
+                {
+                    sugestaoData();
+                }
+            }
         }
 
         private Sala buscaSala(DateTime dataInicio, string horaInicio, DateTime dataFim, string horaFim, int pessoas, bool pc, bool tv, bool webcam, bool wifi)

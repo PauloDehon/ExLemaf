@@ -67,6 +67,24 @@ namespace ExLemaf {
         protected global::System.Web.UI.WebControls.Calendar calDataFim;
         
         /// <summary>
+        /// Controle Label7.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label7;
+        
+        /// <summary>
+        /// Controle fuEntrada.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuEntrada;
+        
+        /// <summary>
         /// Controle lblHoraInicio.
         /// </summary>
         /// <remarks>
