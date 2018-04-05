@@ -1,0 +1,98 @@
+[
+  {
+    "nome": "1",
+    "lugares": 10,
+    "computador": true,
+    "wifi": true,
+    "tv": true,
+    "webcam": true
+  },
+  {
+    "nome": "2",
+    "lugares": 10,
+    "computador": true,
+    "wifi": true,
+    "tv": true,
+    "webcam": true
+  },
+  {
+    "nome": "3",
+    "lugares": 10,
+    "computador": true,
+    "wifi": true,
+    "tv": true,
+    "webcam": true
+  },
+  {
+    "nome": "4",
+    "lugares": 10,
+    "computador": true,
+    "wifi": true,
+    "tv": true,
+    "webcam": true
+  },
+  {
+    "nome": "5",
+    "lugares": 10,
+    "computador": true,
+    "wifi": true,
+    "tv": true,
+    "webcam": true
+  },
+  {
+    "nome": "6",
+    "lugares": 10,
+    "computador": false,
+    "wifi": true,
+    "tv": false,
+    "webcam": false
+  },
+  {
+    "nome": "7",
+    "lugares": 10,
+    "computador": false,
+    "wifi": true,
+    "tv": false,
+    "webcam": false
+  },
+  {
+    "nome": "8",
+    "lugares": 3,
+    "computador": true,
+    "wifi": true,
+    "tv": true,
+    "webcam": true
+  },
+  {
+    "nome": "9",
+    "lugares": 3,
+    "computador": true,
+    "wifi": true,
+    "tv": true,
+    "webcam": true
+  },
+  {
+    "nome": "10",
+    "lugares": 3,
+    "computador": true,
+    "wifi": true,
+    "tv": true,
+    "webcam": true
+  },
+  {
+    "nome": "11",
+    "lugares": 20,
+    "computador": false,
+    "wifi": false,
+    "tv": false,
+    "webcam": false
+  },
+  {
+    "nome": "12",
+    "lugares": 20,
+    "computador": false,
+    "wifi": false,
+    "tv": false,
+    "webcam": false
+  }
+]
