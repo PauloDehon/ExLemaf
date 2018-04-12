@@ -93,7 +93,9 @@
         <asp:CheckBox ID="cbWifi" runat="server" Text="Wifi" />
                 </td>
                 <td class="auto-style9">
-        <asp:Label ID="lblAviso" runat="server" BorderStyle="None"></asp:Label>
+        <asp:Label ID="lblAviso" runat="server" BorderStyle="None" ForeColor="Red"></asp:Label>
+                    <br />
+                    <asp:Label ID="lblMotivo" runat="server"></asp:Label>
                     <br />
         <asp:Button ID="btnBuscar" runat="server" OnClick="btnBuscar_Click" Text="Buscar" />
                 </td>

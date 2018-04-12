@@ -12,7 +12,7 @@ namespace ExLemaf
     public partial class entrada : System.Web.UI.Page
     {
         Reservado reservados = new Reservado();
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -92,7 +92,7 @@ namespace ExLemaf
                 {
                     adicionaReserva(sala, inicio, fim, horaInicio, horaFim, minInicio, minFim);
                 }
-                else
+                else if(lblMotivo.Text == "")
                 {
                     sugestaoData();
                 }
@@ -104,6 +104,7 @@ namespace ExLemaf
             lblAviso.Text = "";
             lblReservas.Text = "";
             lblDicas.Text = "";
+            lblMotivo.Text = "";
             lblSugest.Visible = false;
 
             Sala sala = new Sala();
@@ -146,7 +147,7 @@ namespace ExLemaf
                 }
             }
 
-            if(verificaSala(sala, indisponivel))
+            if((verificaSala(sala, indisponivel)) && lblAviso.Text == "")
             {
                 return sala;
             }
@@ -242,7 +243,7 @@ namespace ExLemaf
                 writer.Write(json);
             }
 
-            lblAviso.Text = "Reserva efetuada com sucesso";
+            lblAviso.Text = "Reserva efetuada com sucesso na sala " + sala.nome;
         }
 
         private void adicionaReserva(Sala sala, DateTime inicio, DateTime fim, string horaInicio, string horaFim, string minInicio, string minFim)
@@ -275,7 +276,7 @@ namespace ExLemaf
                 writer.Write(json);
             }
 
-            lblAviso.Text = "Reserva efetuada com sucesso";
+            lblAviso.Text = "Reserva efetuada com sucesso na sala " + sala.nome;
         }
 
         protected void btnVerReservas_Click(object sender, EventArgs e)
@@ -299,6 +300,7 @@ namespace ExLemaf
 
             if (reserva.dataInicio.Subtract(agora).Days < 1)
             {
+                lblMotivo.Text = "Mínimo de 1 dia de antecedência para marcar";
                 return true;
             }
             else
@@ -314,6 +316,7 @@ namespace ExLemaf
 
             if (reserva.dataInicio.Subtract(agora).Days > 40)
             {
+                lblMotivo.Text = "Máximo de 40 dias antes da data da reserva para reservar";
                 return true;
             }
             else
@@ -327,6 +330,7 @@ namespace ExLemaf
             if((reserva.dataInicio.DayOfWeek == DayOfWeek.Saturday) || (reserva.dataFim.DayOfWeek == DayOfWeek.Saturday)
             || (reserva.dataInicio.DayOfWeek == DayOfWeek.Sunday) || (reserva.dataFim.DayOfWeek == DayOfWeek.Sunday))
             {
+                lblMotivo.Text = "Não é dia útil";
                 return true;
             }
             else
@@ -341,7 +345,7 @@ namespace ExLemaf
             {
                 if((24 - reserva.dataInicio.Hour) + reserva.dataFim.Hour > 8)
                 {
-                    lblAviso.Text = "reunião tem mais de 8 horas";
+                    lblMotivo.Text = "Reunião tem mais de 8 horas";
                     return true;
                 }
                 else

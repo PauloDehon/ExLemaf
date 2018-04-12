@@ -115,5 +115,70 @@
     },
     "dataInicio": "2018-04-26T10:00:00",
     "dataFim": "2018-04-26T12:00:00"
+  },
+  {
+    "id": 10,
+    "sala": {
+      "nome": "1",
+      "lugares": 10,
+      "computador": true,
+      "wifi": true,
+      "tv": true,
+      "webcam": true
+    },
+    "dataInicio": "2018-04-10T10:00:00",
+    "dataFim": "2018-04-10T15:00:00"
+  },
+  {
+    "id": 11,
+    "sala": {
+      "nome": "1",
+      "lugares": 10,
+      "computador": true,
+      "wifi": true,
+      "tv": true,
+      "webcam": true
+    },
+    "dataInicio": "2018-04-11T10:00:00",
+    "dataFim": "2018-04-11T15:00:00"
+  },
+  {
+    "id": 12,
+    "sala": {
+      "nome": "2",
+      "lugares": 10,
+      "computador": true,
+      "wifi": true,
+      "tv": true,
+      "webcam": true
+    },
+    "dataInicio": "2018-04-11T10:00:00",
+    "dataFim": "2018-04-11T18:00:00"
+  },
+  {
+    "id": 13,
+    "sala": {
+      "nome": "3",
+      "lugares": 10,
+      "computador": true,
+      "wifi": true,
+      "tv": true,
+      "webcam": true
+    },
+    "dataInicio": "2018-04-11T10:00:00",
+    "dataFim": "2018-04-11T15:00:00"
+  },
+  {
+    "id": 14,
+    "sala": {
+      "nome": "1",
+      "lugares": 10,
+      "computador": true,
+      "wifi": true,
+      "tv": true,
+      "webcam": true
+    },
+    "dataInicio": "2018-04-27T10:00:00",
+    "dataFim": "2018-04-27T15:00:00"
   }
 ]
