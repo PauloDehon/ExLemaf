@@ -12,6 +12,7 @@ namespace ExLemaf
     public partial class entrada : System.Web.UI.Page
     {
         Reservado reservados = new Reservado();
+        bool viabilidade = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -37,7 +38,7 @@ namespace ExLemaf
                 {
                     adicionaReserva(sala);
                 }
-                else
+                else if(viabilidade)
                 {
                     sugestaoData();
                 }
@@ -92,7 +93,7 @@ namespace ExLemaf
                 {
                     adicionaReserva(sala, inicio, fim, horaInicio, horaFim, minInicio, minFim);
                 }
-                else if(lblMotivo.Text == "")
+                else if(lblMotivo.Text == "" && viabilidade)
                 {
                     sugestaoData();
                 }
@@ -117,6 +118,8 @@ namespace ExLemaf
             {
                 if(viabilidadeSala(salas[i], pessoas, pc, tv, wifi, webcam))
                 {
+                    viabilidade = true;
+
                     sala = salas[i];
 
                     Reservado item = new Reservado();
@@ -143,7 +146,6 @@ namespace ExLemaf
                 }else
                 {
                     lblAviso.Text = "Não há salas com os requisitos necessários disponível </br>";
-                    return null;
                 }
             }
 
